@@ -2,6 +2,37 @@
 
 <img src="https://github.com/arthenica/ffmpeg-kit/blob/main/docs/assets/ffmpeg-kit-icon-v9.png" width="240">
 
+## Android Project Configuration
+
+To use FFmpegKit in your Android project with a local AAR file, follow these steps:
+
+1. Create a `libs` folder in your app module:
+   ```
+   mkdir -p android/app/libs
+   ```
+
+2. Copy the AAR file to your app's libs folder:
+   ```
+   cp flutter/flutter/android/libs/ffmpeg-kit-https-6.0-2.aar android/app/libs/
+   ```
+   
+   The AAR file is available at: [flutter/flutter/android/libs/ffmpeg-kit-https-6.0-2.aar](flutter/flutter/android/libs/ffmpeg-kit-https-6.0-2.aar)
+
+3. Add the following to your `android/app/build.gradle` file:
+   ```gradle
+   dependencies {
+       // ... other dependencies
+       implementation files('libs/ffmpeg-kit-https-6.0-2.aar')
+   }
+   
+   configurations.all {
+       resolutionStrategy {
+           // Prevent duplicate classes by excluding the package if it comes from multiple sources
+           exclude group: 'com.arthenica', module: 'ffmpeg-kit-https'
+       }
+   }
+   ```
+
 `FFmpegKit` is a collection of tools to use `FFmpeg` in `Android`, `iOS`, `Linux`, `macOS`, `tvOS`, `Flutter` and `React Native` applications.
 
 It includes scripts to build `FFmpeg` native libraries, a wrapper library to run `FFmpeg`/`FFprobe` commands in
